@@ -42,4 +42,19 @@
 <p><strong>Rules Engine -&gt;</strong></p>
 <p>Using the Predicate interface, this interface is already a rule engine.</p>
 <p>Transforming a complex structure to a functional method</p>
-<p><br></p>
+<p><strong>CSV to Memory Charge -&gt;</strong></p>
+<p>Filter and data conversions</p>
+<p>Lazy execution<br><br><em>Do not handle csv, use some library that you will save a lot of time</em></p>
+<pre style="background-color:#2b2b2b;color:#a9b7c6;font-family:'JetBrains Mono',monospace;font-size:9.8pt;"><span style="color:#cc7832;">public class </span>CSVFile {
+    <span style="color:#cc7832;">public static void </span><span style="color:#ffc66d;">main</span>(String[] args) <span style="color:#cc7832;">throws </span>IOException {
+        Path file = Paths.<span style="font-style:italic;">get</span>(<span style="color:#6a8759;">&quot;clients-phones.csv&quot;</span>)<span style="color:#cc7832;">;
+</span><span style="color:#cc7832;">
+</span><span style="color:#cc7832;">        </span>List&lt;ClientPhone&gt; clientPhones = Files.<span style="font-style:italic;">lines</span>(file)
+                .map(line -&gt; line.split(<span style="color:#6a8759;">&quot;;&quot;</span>))
+                .map(arr -&gt; <span style="color:#cc7832;">new </span>ClientPhone(arr[<span style="color:#6897bb;">0</span>]<span style="color:#cc7832;">, </span>arr[<span style="color:#6897bb;">1</span>]<span style="color:#cc7832;">, </span>arr[<span style="color:#6897bb;">2</span>]))
+                .filter(tel -&gt; tel.getAreaCode().equals(<span style="color:#6a8759;">&quot;19&quot;</span>))
+                .collect(Collectors.<span style="font-style:italic;">toList</span>())<span style="color:#cc7832;">;
+</span><span style="color:#cc7832;">
+</span><span style="color:#cc7832;">        </span>clientPhones.stream().forEach(System.<span style="color:#9876aa;font-style:italic;">out</span>::println)<span style="color:#cc7832;">;
+</span><span style="color:#cc7832;">    </span>}
+}</pre>
